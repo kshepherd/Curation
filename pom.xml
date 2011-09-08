@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>CurationTaskDemos</groupId>
+    <artifactId>CurationTaskDemos</artifactId>
+    <version>1.0</version>
+
+    <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <source>1.5</source>
+              <target>1.5</target>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <finalName>${artifactId}-${version}-bundle</finalName>
+                <artifactSet>
+                    <includes>
+                        <include>net.sf.json-lib:*</include>
+                        <include>net.sf.ezmorph:*</include>
+                        <include>commons-beanutils:*</include>
+                        <include>com.drewnoakes:*</include>
+                    </includes>
+                </artifactSet>
+            </configuration>
+		</plugin>
+    </plugins>
+  </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.dspace</groupId>
+            <artifactId>dspace-api</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
+        <!-- Needed for Google Translator
+             Also brings in commons-beanutils and net.sf.ezmorph -->
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+
+        <!-- Needed for ExifExtractor -->
+        <dependency>
+            <groupId>com.drewnoakes</groupId>
+            <artifactId>metadata-extractor</artifactId>
+            <version>2.4.0-beta-1</version>
+        </dependency>
+    </dependencies>
+    
+</project>

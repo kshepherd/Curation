@@ -1,0 +1,70 @@
+
+Curation Demonstration Tasks README
+=========================================================================================
+Kim Shepherd <kim.shepherd@gmail.com>, 2011-09-08
+The University of Auckland Library
+=========================================================================================
+See also:
+Curation Task Cookbook: https://wiki.duraspace.org/display/DSPACE/Curation+Task+Cookbook
+Curation System Documentation: https://wiki.duraspace.org/display/DSDOC/Curation+System
+=========================================================================================
+
+This small Maven project contains a handful of generic DSpace Curation tasks for teaching and
+demonstration purposes. Example configuration files have been provided as well as Java source
+and a Maven build configuration.
+
+To build and deploy these tasks:
+
+- Clone the source from github: git clone git://github.com/kshepherd/Curation.git
+- Either create a project from this cloned source in your favourite IDE, or change to the directory in a command prompt
+- Build with Maven from your IDE or with the command "mvn package"
+ (this may take some time for the first build, as it needs to download a lot of dependencies)
+
+ A few jars will be created in your 'target' directory once the build is complete. I recommend using the bundle,
+   "CurationTaskDemos-1.0-bundle.jar" as it is already bundled with dependencies outside of DSpace, so you can deploy
+   this single file without worrying about copying in other dependencies.
+
+ You can edit pom.xml as you add new Maven dependencies, or if you wish to change the version of DSpace API to compile
+ against. The default version of the DSpace API that this project compiles against is 1.7.2.
+
+ (note: these tasks are all so simple that they will probably work from 1.7.0 - trunk without any changes to the pom)
+
+ To deploy these tasks, you can either alter your DSpace build process so that this bundled .jar is pulled in with
+ other libraries, or you can manually drop it into [dspace]/lib (for command-line execution) and into
+ [/path/to/deployed/XMLUI/webapp]/WEB-INF/lib for execution via XMLUI.
+
+ Before the tasks can be run, you will also need to configure them in [dspace]/config/modules/curate.cfg, eg.
+
+plugin.named.org.dspace.curate.CurationTask = \
+  ...some other tasks here.... \
+  org.dspace.ctasks.demo.NameOfCurationTaskClass = shortname
+
+  If you want the tasks to be invoked from XMLUI edit item/collection/community screens, you will also need to
+  add the short names to the 'ui.tasknames' list in curate.cfg
+
+  No restart is needed to invoke new curation tasks from the command line, but you will need to restart Tomcat (or
+  your servlet container of choice) to invoke new tasks from XMLUI.
+
+ Brief descriptions of tasks:
+ --
+ * NoOpCurationTask: This task literally does nothing. I use this as a template for simple tasks and as a teaching
+   tool.
+
+ * AbstractTranslator, MicrosoftTranslator, GoogleTranslator: Various translation services. An API key is required,
+   and the 'translator.cfg' file needs to be deployed to [dspace]/config/modules
+
+ * BasicLinkChecker, MetadataValueLinkChecker: Simple link checker tasks that report on broken links
+
+ * PolicyChecker: Simple CSV report of publicly-readable bitstreams in an item or collection of items
+
+ * URIGenerator: Generates new dc.identifier.uri values for items. Useful if handle prefix has changed.
+
+ * ExifExtractor: Extracts EXIF metadata from JPEGS and inserts it into item metadata. The 'exif.cfg' configuration
+   file must be deployed to [dspace]/config/modules
+
+ Licensing:
+ --
+ Unless otherwise specified, all this code is subject to the same license DSpace is released under.
+ Details are available at http://www.dspace.org/license/
+
+ Feedback, review and offers of assistance are all welcome! I regularly monitor pull requests to my github repos.
