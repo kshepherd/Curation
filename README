@@ -1,4 +1,3 @@
-
 Curation Demonstration Tasks README
 =========================================================================================
 Kim Shepherd <kim.shepherd@gmail.com>, 2011-09-08
@@ -37,7 +36,7 @@ To build and deploy these tasks:
 
 plugin.named.org.dspace.curate.CurationTask = \
   ...some other tasks here.... \
-  org.dspace.ctasks.demo.NameOfCurationTaskClass = shortname
+  org.dspace.ctask.demo.NameOfCurationTaskClass = shortname
 
   If you want the tasks to be invoked from XMLUI edit item/collection/community screens, you will also need to
   add the short names to the 'ui.tasknames' list in curate.cfg
